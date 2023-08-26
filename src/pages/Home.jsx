@@ -8,7 +8,7 @@ import image from '../assets/images/background.jpeg'
 const Home = () => {
    return(
    <>
-      <section className='bg-position' style={{ backgroundImage:`url(${image})`,backgroundRepeat:"no-repeat",backgroundSize:"contain"}}>
+      <section className='bg-setting'>
          <Container >
             <Row>
                <SearchBar pos="mt-96"/>

@@ -9,12 +9,10 @@ import './shake.css'
    const [email, setEmail] = useState(location.state);
   
 
-  const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [isSent,setIsSent]=useState(false)
   const [number, setNumber] = useState("");
   const [error, setError] = useState(null);
-  const [isEmailVerified,setIsEmailVerified]=useState(false)
   function handleChange(e) {
     setError('');
     const input = e.target.value;
@@ -64,7 +62,17 @@ import './shake.css'
           // dispatch({ type: 'REGISTER_SUCCESS' },{state:email})
           // navigate('/register/name')
     }
-
+    const resendCode=async()=>{
+      setIsSent(true)
+      const res = await fetch(`${BASE_URL}/auth/sendEmail`, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({email:email})
+      })
+      
+    }
   
 
    return (
@@ -78,8 +86,9 @@ import './shake.css'
             </div>
             {error && <div className='font-medium text-red-600'>{error}</div>}
             <div className='w-[500px] lg:w-[600px] xl:w-[700px] ml-auto mr-auto'>
-              <button className=' text-left mt-1 h-12 w-[500px] lg:w-[600px] xl:w-[700px] hover:rounded-2xl hover:bg-slate-200 font-semibold text-lg text-cyan-400'>Resend code</button>                
+              <button onClick={resendCode} className=' text-left mt-1 h-12 w-[500px] lg:w-[600px] xl:w-[700px] hover:rounded-2xl hover:bg-slate-200 font-semibold text-lg text-cyan-400'>Resend code</button>                
             </div>
+            {isSent&&<label className='text-green-500 font-medium'>Verification code was sent to your email successfully</label>}
             <br></br>
             {!error &&<button type='submit' onClick={handleSubmitClick} className='mt-12 bg-green-400 text-white font-bold rounded-full h-12 w-28 hover:bg-green-500'>Validate</button>}
         </div>

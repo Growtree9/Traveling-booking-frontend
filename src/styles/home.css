@@ -168,6 +168,9 @@
    }
 }
 
-.bg-position {
+.bg-setting{
    background-position: top center;
+   background-image: url('../assets/images/background.jpeg');
+   background-repeat: no-repeat;
+   background-size: contain;
 }
